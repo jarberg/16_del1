@@ -6,7 +6,6 @@ public class Game {
     private Player player2;
     private DiceCup cup;
 
-
     public Game(Player player1, Player player2, DiceCup cup){
         this.player1 = player1;
         this.player2 = player2;
@@ -82,8 +81,5 @@ public class Game {
         }
 
     }
-
-
-
 
 }
