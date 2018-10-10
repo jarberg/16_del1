@@ -1,10 +1,32 @@
 public class Player {
 
-    int points = 0;
+    private int points = 0;
     private String name = "Guest";
+    private boolean lastTurnPairSix = false;
 
     Player(String name){
-        name = name;
-
+        this.name = name;
     }
+
+    public int getPoints(){
+        return points;
+    }
+
+    public boolean getLastTurnPairSix(){
+        return lastTurnPairSix;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setLastTurnPairSix(boolean lastTurnPairSix){
+        this.lastTurnPairSix = lastTurnPairSix;
+    }
+
+    public void addToPoints(int points){
+        this.points += points;
+    }
+
+
 }
