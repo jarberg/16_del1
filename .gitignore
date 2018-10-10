@@ -1,6 +1,13 @@
 # Compiled class file
 *.class
 
+#standard intellij bullshit
+/.idea
+*.class
+*.iml
+*.xml
+*.MF
+
 # Log file
 *.log
 
