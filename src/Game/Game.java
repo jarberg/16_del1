@@ -1,4 +1,4 @@
-import java.io.IOException;
+package Game;
 
 public class Game {
 

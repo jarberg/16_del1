@@ -1,9 +1,11 @@
+package Game;
+
 public class DiceCup {
 
     private Die die1;
     private Die die2;
 
-    DiceCup(Die die1, Die die2){
+    public DiceCup(Die die1, Die die2){
         this.die1 = die1;
         this.die2 = die2;
     }
@@ -21,15 +23,12 @@ public class DiceCup {
         die2.random();
     }
 
-    int getSum(){
+    public int getSum(){
         return die1.getValue() + die2.getValue();
     }
 
-    boolean isMatch(){
+    public boolean isMatch(){
         return die1.getValue() == die2.getValue();
     }
-
-
-
 
 }

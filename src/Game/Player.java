@@ -1,10 +1,12 @@
+package Game;
+
 public class Player {
 
     private int points = 0;
     private String name = "Guest";
     private boolean lastTurnPairSix = false;
 
-    Player(String name){
+    public Player(String name){
         this.name = name;
     }
 

@@ -1,3 +1,10 @@
+package Application;
+
+import Game.DiceCup;
+import Game.Die;
+import Game.Game;
+import Game.Player;
+
 import java.util.Scanner;
 
 public class Main {
@@ -12,14 +19,10 @@ public class Main {
 
         Die die1 = new Die();
         Die die2 = new Die();
-
         DiceCup cup = new DiceCup(die1,die2);
 
         Game game = new Game(player1,player2,cup);
         game.playTurns(player1,player2);
-
-
-
 
     }
 }
