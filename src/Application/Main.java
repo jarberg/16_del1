@@ -22,7 +22,9 @@ public class Main {
         DiceCup cup = new DiceCup(die1,die2);
 
         Game game = new Game(player1,player2,cup);
-        game.playTurns(player1,player2);
+        while(!game.hasWinner()){
+            game.playTurn();
+        }
 
     }
 }
