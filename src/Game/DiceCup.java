@@ -5,6 +5,8 @@ public class DiceCup {
     private Die die1;
     private Die die2;
 
+    public DiceCup(){ }
+
     public DiceCup(Die die1, Die die2){
         this.die1 = die1;
         this.die2 = die2;
@@ -31,4 +33,10 @@ public class DiceCup {
         return die1.getValue() == die2.getValue();
     }
 
+    protected void setFirstDie(Die die1) {
+        this.die1 = die1;
+    }
+    protected void setSecondDie(Die die2) {
+        this.die2 = die2;
+    }
 }
