@@ -45,7 +45,6 @@ public class Game {
         System.out.println(thisPlayer.getName()+" rolled "+cup.getDie1().getValue()+" and "+cup.getDie2().getValue()+". ");
 
         if(pairOne){
-            thisPlayer.setPoints(0);
             System.out.println(" You rolled two ones... you lose all your points. ");
         }
         else {
@@ -67,8 +66,11 @@ public class Game {
     }
 
     private void checkBonus(){
-        if(cup.getSum()==2)
+        if(cup.getSum()==2){
+            thisPlayer.setPoints(0);
             pairOne = true;
+        }
+
 
         if(cup.isMatch() && thisPlayer.getPoints() >= 40)
             winnerFound = true;
