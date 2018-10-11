@@ -54,4 +54,15 @@ class DiceCupTest {
         diceCup.setSecondDie(die2);
         return diceCup;
     }
+
+    public static FakeDiceCup setupFakeDiceCup(int die1Value, int die2Value) {
+        FakeDiceCup diceCup = new FakeDiceCup();
+        Die die1 = new Die();
+        die1.setValue(die1Value);
+        Die die2 = new Die();
+        die2.setValue(die2Value);
+        diceCup.setFirstDie(die1);
+        diceCup.setSecondDie(die2);
+        return diceCup;
+    }
 }

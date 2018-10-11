@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Game {
 
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
     private Player thisPlayer;
     private Player nextPlayer;
     private DiceCup cup;
@@ -12,10 +12,28 @@ public class Game {
     private boolean pairOne = false;
     private boolean winnerFound = false;
 
+
+    public Game(){
+        this(null,null,null);
+    }
     public Game(Player player1, Player player2, DiceCup cup){
         this.thisPlayer = player1;
         this.nextPlayer = player2;
         this.cup = cup;
+        setScanner(new Scanner(System.in));
+    }
+    protected void setFirstPlayer(Player player1) {
+        this.thisPlayer = player1;
+    }
+    protected void setSecondPlayer(Player player2) {
+        this.nextPlayer = player2;
+    }
+    protected void setDiceCup(DiceCup diceCup) {
+        this.cup = diceCup;
+    }
+    protected Scanner setScanner(Scanner scanner){
+        this.scanner = scanner;
+        return scanner;
     }
 
     public boolean hasWinner(){
@@ -90,5 +108,11 @@ public class Game {
     }
 
 
+    protected int getFirstPlayerPoints() {
+        return this.thisPlayer.getPoints();
+    }
 
+    protected int getSecondPlayerPoints() {
+        return this.nextPlayer.getPoints();
+    }
 }
