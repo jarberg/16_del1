@@ -1,85 +1,95 @@
 package Game;
 
+import java.util.Scanner;
+
 public class Game {
 
-    private Player player1;
-    private Player player2;
+    private Player thisPlayer;
+    private Player nextPlayer;
     private DiceCup cup;
+    private boolean bonusTurn = false;
+    private boolean pairOne = false;
+    private boolean winnerFound = false;
+    private Scanner scanner = new Scanner(System.in);
 
     public Game(Player player1, Player player2, DiceCup cup){
-        this.player1 = player1;
-        this.player2 = player2;
+        this.thisPlayer = player1;
+        this.nextPlayer = player2;
         this.cup = cup;
     }
 
-    public void playTurns(Player player1, Player player2){
+    public void playTurns(Player thisPlayer, Player nextPlayer){
 
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println(thisPlayer.getName() + "'s turn. Press enter to roll!");
+        scanner.nextLine();
 
-        System.out.println(this.player1.getName() + " has " + this.player1.getPoints() + " points.");
-        System.out.println(this.player2.getName() + " has " + this.player2.getPoints() + " points.");
-
-        System.out.println(player1.getName() + "'s turn.");
         cup.shuffle();
+        checkBonus();
+        result(cup, thisPlayer);
+        scanner.nextLine();
 
-        try {
-            Thread.sleep(750);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if(cup.isMatch() && player1.getPoints() >= 40){
-            System.out.println(player1.getName() + " wins!");
+        if(this.winnerFound)
             return;
-        }
 
-        System.out.println("You got: " + cup.getDie1().getValue() + " and " + cup.getDie2().getValue());
-        player1.addToPoints(cup.getSum());
-
-        try {
-            Thread.sleep(750);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if(cup.getSum()==2){
-            System.out.println("Oh no, you lost all your points.");
-        }
-
-        if(cup.getSum()==12) {
-            if (player1.getLastTurnPairSix()) {
-                System.out.println(player1.getName() + " wins!");
-                return;
-            } else
-                player1.setLastTurnPairSix(true);
-        }
-        else{
-            player1.setLastTurnPairSix(false);
-        }
-
-        if(cup.isMatch()){
-            System.out.println("Bonus turn!");
-        }
-
-        try {
-            Thread.sleep(750);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        boolean bonusTurn = cup.isMatch();
+        this.pairOne = false;
 
         if(bonusTurn){
-            playTurns(player1,player2);
+            this.bonusTurn = false;
+            playTurns(thisPlayer,nextPlayer);
         }
         else{
-            playTurns(player2,player1);
+            playTurns(nextPlayer,thisPlayer);
+        }
+    }
+
+    private void result(DiceCup cup, Player player){
+
+        System.out.print(player.getName());
+        System.out.print(" rolled ");
+        System.out.print(cup.getDie1().getValue());
+        System.out.print(" and ");
+        System.out.print(cup.getDie2().getValue());
+        if(pairOne){
+            System.out.println(". You rolled two ones... you lose all your points.");
+        }
+        else {
+            System.out.print(". You have earned ");
+            System.out.print(cup.getSum());
+            System.out.print(" points! ");
+            player.addToPoints(cup.getSum());
+        }
+        System.out.print("Now you have ");
+        System.out.print(player.getPoints() + " ");
+        if(!bonusTurn&&!winnerFound)
+            System.out.println(". Press enter to end turn!");
+        if(winnerFound) {
+            System.out.println(player.getName() + " won the game!");
+        }
+        else if(bonusTurn)
+            System.out.println("You rolled two of a kind, so you get a bonus turn!");
+    }
+
+    private void checkBonus(){
+        if(cup.getSum()==2){
+            this.pairOne = true;
+            thisPlayer.setPoints(0);
         }
 
+        if(cup.isMatch() && thisPlayer.getPoints() >= 40)
+            this.winnerFound = true;
+
+        if(cup.getSum()==12) {
+            if (thisPlayer.getLastTurnPairSix()) {
+                this.winnerFound = true;
+            } else
+                thisPlayer.setLastTurnPairSix(true);
+        }else
+            thisPlayer.setLastTurnPairSix(false);
+
+        if(cup.isMatch())
+            this.bonusTurn = true;
     }
+
+
 
 }

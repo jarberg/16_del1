@@ -17,6 +17,7 @@ public class Player {
     public int getPoints(){
         return points;
     }
+    public void setPoints(int points){this.points = points;}
     public void addToPoints(int points){
         this.points += points;
     }

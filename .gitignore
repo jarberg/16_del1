@@ -1,7 +1,7 @@
 # Compiled class file
 *.class
 
-#standard intellij bullshit
+#standard IntelliJ
 /.idea
 *.class
 *.iml
