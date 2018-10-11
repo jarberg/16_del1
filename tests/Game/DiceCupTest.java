@@ -44,7 +44,7 @@ class DiceCupTest {
         assertEquals(false, diceCup.isMatch());
     }
 
-    private DiceCup setupDiceCup(int die1Value, int die2Value) {
+    public static DiceCup setupDiceCup(int die1Value, int die2Value) {
         DiceCup diceCup = new DiceCup();
         Die die1 = new Die();
         die1.setValue(die1Value);

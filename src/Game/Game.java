@@ -12,10 +12,20 @@ public class Game {
     private boolean winnerFound = false;
     private Scanner scanner = new Scanner(System.in);
 
+    public Game(){}
     public Game(Player player1, Player player2, DiceCup cup){
         this.thisPlayer = player1;
         this.nextPlayer = player2;
         this.cup = cup;
+    }
+    protected void setFirstPlayer(Player player1) {
+        this.thisPlayer = player1;
+    }
+    protected void setSecondPlayer(Player player2) {
+        this.nextPlayer = player2;
+    }
+    protected void setDiceCup(DiceCup diceCup) {
+        this.cup = diceCup;
     }
 
     public void playTurns(Player thisPlayer, Player nextPlayer){
@@ -89,7 +99,6 @@ public class Game {
         if(cup.isMatch())
             this.bonusTurn = true;
     }
-
 
 
 }

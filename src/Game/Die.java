@@ -3,7 +3,7 @@ package Game;
 public class Die {
 
     //start with dummy value within the range 1 to 6
-    private int faceValue = 1;
+    private int faceValue = 0;
 
     public int getValue(){
         return this.faceValue;
