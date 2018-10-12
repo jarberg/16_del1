@@ -22,6 +22,62 @@ class GameTest {
     void tearDown() {
     }
 
+    @Test
+    void givenGameStart_returnGetResultForLessThan333MilliSec(){
+        //arrange
+        Player player1 = new Player("Player1");
+        Player player2 = new Player("Player2");
+        Die die1 = new Die();
+        Die die2 = new Die();
+        DiceCup cup = new DiceCup(die1,die2);
+        Game nativeGame = new Game(player1,player2,cup);
+        ByteArrayInputStream in = new ByteArrayInputStream("\n\n".getBytes());
+        System.setIn(in);
+        Scanner input = nativeGame.setScanner( new Scanner(System.in) );
+        long start = 0;
+        long stop = 0;
+
+        //act
+        while(!nativeGame.hasWinner()){
+            start = System.currentTimeMillis();
+            nativeGame.playTurn();
+            stop = System.currentTimeMillis();
+            break;
+        }
+        long diffTime = stop - start;
+
+        //assert
+        assertTrue(diffTime < 333);
+    }
+
+
+    @Test
+    void givenPlayer1RollsTwoOne_returnPlayer1ScoreIsZero(){
+        //arrange, act
+        Game game = setupDiceGame("nameOfPlayer1", "nameOfPlayer2", 5,4);
+
+        ByteArrayInputStream in = new ByteArrayInputStream("\n\n".getBytes());
+        System.setIn(in);
+        Scanner input = game.setScanner( new Scanner(System.in) );
+
+        //act
+        game.playTurn();
+
+        //assert
+        assertEquals(5+4, game.getFirstPlayerPoints());
+
+        //player2 score
+        game.setDiceCup(DiceCupTest.setupFakeDiceCup(6, 5));
+        //act
+        game.playTurn();
+        //assert
+        assertEquals(6+5, game.getSecondPlayerPoints());
+
+
+        assertEquals(false,  game.checkBonus() );
+
+    }
+
 
     @Test
     void givenPlayer1RollsTwoEqual_returnGetsExtraTurn(){
@@ -31,11 +87,13 @@ class GameTest {
         ByteArrayInputStream in = new ByteArrayInputStream("\n\n".getBytes());
         System.setIn(in);
         Scanner input = game.setScanner( new Scanner(System.in) );
+
         //act
         game.playTurn();
 
         //assert
         assertEquals(4, game.getFirstPlayerPoints());
+        assertEquals(true,  game.checkBonus() );
     }
 
     @Test

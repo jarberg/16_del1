@@ -83,7 +83,7 @@ public class Game {
             System.out.println(". You rolled two of a kind, so you get a bonus turn!");
     }
 
-    private void checkBonus(){
+    protected boolean checkBonus(){
         if(cup.getSum()==2){
             thisPlayer.setPoints(0);
             pairOne = true;
@@ -105,6 +105,8 @@ public class Game {
 
         if(cup.isMatch())
             this.bonusTurn = true;
+
+        return bonusTurn;
     }
 
 
